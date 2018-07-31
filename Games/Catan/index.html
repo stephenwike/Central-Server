@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Catan</title>
+<script type="text/javascript" src="js/myscripts.js"></script>
+<script type="text/javascript" src="js/players.js"></script>
+<script type="text/javascript" src="js/gameboard.js"></script>
+<script type="text/javascript" src="js/cityspaces.js"></script>
+<script type="text/javascript" src="js/ports.js"></script>
+<script type="text/javascript" src="js/dice.js"></script>
+<script type="text/javascript" src="js/leaderboard.js"></script>
+<script type="text/javascript" src="js/turnbtn.js"></script>
+<script type="text/javascript" src="js/adjacent.js"></script>
+<script type="text/javascript" src="js/roads.js"></script>
+<script type="text/javascript" src="js/cards.js"></script>
+<script type="text/javascript" src="js/bank.js"></script>
+<script type="text/javascript" src="js/trade.js"></script>
+<script type="text/javascript" src="js/robber.js"></script>
+<script type="text/javascript" src="js/alert.js"></script>
+<script type="text/javascript" src="js/devcards.js"></script>
+<script type="text/javascript" src="js/longest.js"></script>
+<link rel="stylesheet" type="text/css" href="css/mystyle.css">
+</head>
+
+<body>
+  <div id="alertboard"></div>
+  <div id="maincontent">
+    <center id="inputplayers">
+    <p style="margin-bottom:25px;font-size:60px;color:#044;">CATAN</p>
+    How many players? 
+    <input type="number" id="howmanyplayers" min="1" max="4" value="2"/><br />
+    How many computers?
+    <input type="number" id="howmanycomputers" min="0" max="3" value="0"/><br /><button type="button" id="submitbtn" onclick="StartGame()">PLAY GAME</button></center>
+  </div>
+</body>
+</html>
