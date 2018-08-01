@@ -30,11 +30,14 @@ gc_io.on('connection', (socket) => {
 	
 	var htmlpath = path.join(__dirname, '/Games/Catan/boot.sh');
 	console.log("HTML path: " + htmlpath);
-	if (shell.exec("xinit " + htmlpath).code !== 0)
-	{
-		shell.echo('Error: Git commit failed');
-		shell.exit(1);
-	}
+	
+	// Launch Catan web page
+	gc_app._router.handle(req, res, next)
+	//if (shell.exec("xinit " + htmlpath).code !== 0)
+	//{
+	//	shell.echo('Error: Git commit failed');
+	//	shell.exit(1);
+	//}
   });
   
   //gc_io.emit('welcome', { hello: "world" });
