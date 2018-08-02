@@ -17,12 +17,12 @@ const GAME = "GameCentral/";
 //gc_app.use(express.static(path.join(ROOT, GAME, 'HOME')));
 
 gc_app.get('/', (req, res) => {
-  console.log("Connected");
+  console.log("Connected from TV");
   res.sendFile(__dirname + '/Games/TestChat/index.html');
 });
 
 an_app.get('/', (req, res) => {
-  console.log("Connected");
+  console.log("Connected from ANDROID");
 });
 
 gc_io.on('connection', (socket) => {	
