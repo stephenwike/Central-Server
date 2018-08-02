@@ -37,12 +37,12 @@ an_io.on('connection', (socket) => {
   
   socket.on('chat message', (msg) => {
 	  console.log(msg);
-  }
+  });
   socket.on('disconnect', () => 
   {
 	console.log("USER: " + socket.id + " disconnected from PORT: " + an_app_port);
   });
-}
+});
 
 gc_client.listen(gc_app_port, () => {
   console.log("Listening on port " + gc_app_port);
@@ -50,4 +50,4 @@ gc_client.listen(gc_app_port, () => {
 
 an_client.listen(an_app_port, () => {
   console.log("Listening on port " + an_app_port);
-}
+});
