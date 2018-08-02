@@ -14,7 +14,8 @@ const GAME = "GameCentral/";
 
 gc_app.get('/', (req, res) => {
   console.log("Connected");
-  res.send("Welcome to socket");
+  //res.send("Welcome to socket");
+  res.sendFile(__dirname + '/Games/TestChat/index.html');
   //res.sendFile(path.join(ROOT, GAME, 'HOME/index.html'));
 });
 
@@ -30,20 +31,19 @@ gc_io.on('connection', (socket) => {
 	
 	var htmlpath = path.join(__dirname, '/Games/Catan/boot.sh');
 	console.log("HTML path: " + htmlpath);
-	
-	// Launch Catan web page
-	gc_app._router.handle(req, res, next)
-	//if (shell.exec("xinit " + htmlpath).code !== 0)
-	//{
-	//	shell.echo('Error: Git commit failed');
-	//	shell.exit(1);
-	//}
   });
   
-  //gc_io.emit('welcome', { hello: "world" });
-  //socket.on('buhbye', (data) => {
-  //  console.log(data);
-  //});
+  socket.on("RUN_testChat", (msg) =>
+  {
+	console.log("Running test chat.");
+  });
+  
+  socket.on('disconnect', () => 
+  {
+	console.log("User disconnected"); 
+  });
+  
+
 });
 
 gc_io.on('RUN_catan', (client) => {
