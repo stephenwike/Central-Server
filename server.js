@@ -10,6 +10,8 @@ var an_server = require('http').Server(an_app);
 var gc_io = require('socket.io')(gc_server);
 var an_io = require('socket.io')(an_server);
 
+var gc_socket;
+
 const ROOT = "/var/www/";
 const GAME = "GameCentral/";
 
@@ -25,8 +27,9 @@ an_app.get('/', (req, res) => {
   console.log("Connected from ANDROID");
 });
 
-gc_io.on('connection', (socket) => {	
+gc_io.on('connection', (socket) => {
   console.log("CONNECTION TO PORT: " + gc_app_port + ", USER: " + socket.id); 
+  gc_socket = socket;
   
   socket.on('disconnect', () => 
   {
@@ -39,6 +42,7 @@ an_io.on('connection', (socket) => {
   
   socket.on('chat message', (msg) => {
 	  console.log(msg);
+	  gc_socket.emit('chat message', msg);
   });
   socket.on('disconnect', () => 
   {
