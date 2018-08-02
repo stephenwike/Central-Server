@@ -2,9 +2,13 @@ var express = require('express');
 var path = require('path');
 var shell = require('shelljs');
 var gc_app = express(); // GAME CENTRAL APP
+var an_app = express(); // ANDROID APP
 var gc_app_port = 9090;
-var gc_server = require('http').Server(gc_app);
-var gc_io = require('socket.io')(gc_server);
+var an_app_port = 8080;
+var gc_client = require('http').Server(gc_app);
+var an_client = require('http').Server(an_app);
+var gc_io = require('socket.io')(gc_client);
+var an_io = require('socket.io')(an_client);
 
 const ROOT = "/var/www/";
 const GAME = "GameCentral/";
@@ -20,39 +24,30 @@ gc_app.get('/', (req, res) => {
 });
 
 gc_io.on('connection', (socket) => {	
-
-  console.log("CONNECTION IO"); 
-  console.log("ID: " + socket.id);
-  
-  socket.on("RUN_catan", (msg) =>
-  {
-	console.log("running catan... broadcast load config");
-	socket.broadcast.emit("LOADING_config");
-	
-	var htmlpath = path.join(__dirname, '/Games/Catan/boot.sh');
-	console.log("HTML path: " + htmlpath);
-  });
-  
-  socket.on("RUN_testChat", (msg) =>
-  {
-	console.log("Running test chat.");
-  });
+  console.log("CONNECTION TO PORT: " + gc_app_port + ", USER: " + socket.id); 
   
   socket.on('disconnect', () => 
   {
-	console.log("User disconnected"); 
+	console.log("USER: " + socket.id + " disconnected from PORT: " + gc_app_port); 
   });
+});
+
+an_io.on('connection', (socket) => {
+  console.log("CONNECTION TO PORT: " + an_app_port + ", USER: " + socket.id); 
   
+  socket.on('chat message', (msg) => {
+	  console.log(msg);
+  }
+  socket.on('disconnect', () => 
+  {
+	console.log("USER: " + socket.id + " disconnected from PORT: " + an_app_port);
+  });
+}
 
-});
-
-gc_io.on('RUN_catan', (client) => {
-	console.log("HERE");
-	console.log("Client id: " + client.id + " has run catan application.");
-});
-
-gc_server.listen(gc_app_port, function() {
+gc_client.listen(gc_app_port, () => {
   console.log("Listening on port " + gc_app_port);
 });
 
-//module.exports = app;
+an_client.listen(an_app_port, () => {
+  console.log("Listening on port " + an_app_port);
+}
