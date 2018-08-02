@@ -21,12 +21,12 @@ var loginCount = 0;
 
 tv_app.get('/', (req, res) => {
   console.log("Connected from TV");
-  res.sendFile(__dirname + '/root/index.html');
+  res.sendFile(__dirname + '/GameCentral/index.html');
 });
 
 an_app.get('/', (req, res) => {
   console.log("Connected from ANDROID");
-  res.sendFile(__dirname + '/root/testApp.html');
+  res.sendFile(__dirname + '/GameCentral/testApp.html');
 });
 
 tv_io.on('connection', (socket) => 
