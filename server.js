@@ -5,10 +5,10 @@ var gc_app = express(); // GAME CENTRAL APP
 var an_app = express(); // ANDROID APP
 var gc_app_port = 9090;
 var an_app_port = 8080;
-var gc_client = require('http').Server(gc_app);
-var an_client = require('http').Server(an_app);
-var gc_io = require('socket.io')(gc_client);
-var an_io = require('socket.io')(an_client);
+var gc_server = require('http').Server(gc_app);
+var an_server = require('http').Server(an_app);
+var gc_io = require('socket.io')(gc_server);
+var an_io = require('socket.io')(an_server);
 
 const ROOT = "/var/www/";
 const GAME = "GameCentral/";
@@ -18,9 +18,11 @@ const GAME = "GameCentral/";
 
 gc_app.get('/', (req, res) => {
   console.log("Connected");
-  //res.send("Welcome to socket");
   res.sendFile(__dirname + '/Games/TestChat/index.html');
-  //res.sendFile(path.join(ROOT, GAME, 'HOME/index.html'));
+});
+
+an_app.get('/', (req, res) => {
+  console.log("Connected");
 });
 
 gc_io.on('connection', (socket) => {	
@@ -44,10 +46,10 @@ an_io.on('connection', (socket) => {
   });
 });
 
-gc_client.listen(gc_app_port, () => {
+gc_server.listen(gc_app_port, () => {
   console.log("Listening on port " + gc_app_port);
 });
 
-an_client.listen(an_app_port, () => {
+an_server.listen(an_app_port, () => {
   console.log("Listening on port " + an_app_port);
 });
