@@ -74,8 +74,8 @@ tv_io.on('connection', (socket) =>
 an_io.on('connection', (socket) => 
 {
 	console.log("App connected, id: " + socket.id);
-	loginCount++;
-	var args = { "count": loginCount };
+	//loginCount++;
+	var args = { "id": socket.id };
 	tv_io.emit('newconnect', args);
 	
 	socket.on('disconnect', (args) =>
